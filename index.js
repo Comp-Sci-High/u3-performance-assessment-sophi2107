@@ -195,7 +195,7 @@ const gossipGirlSzn2 = {
                     "funFact": "Publicly confronts Gossip Girl’s interference."
                 },
                 {
-                    "firstName": "Chuck",
+                    "firstName": "ChuTck",
                     "lastName": "Bass",
                     "photo": "https://example.com/chuck-photo.jpg",
                     "roleInEvent": 3,
@@ -222,13 +222,26 @@ const gossipGirlSzn2 = {
 
 
 app.get("/", (request, response) => {
-    response.send("Welcome to the Gossip Girl major event API!!!!!!")
-    response.send("This API brings the ability of finding out what were season 2 major events, its episode, and the characters involved")
+    response.status(200)
+    response.send("<h1>Welcome to the Gossip Girl major events!!!!!</h2> <p>This API brings the ability of finding out what were season 2 major events, its episode, and the characters involved</p>")
 })
 app.get("/docs", (request, response) => {
-    response.send("To access any information from this API you will need to enter a / first then your request, for example you will want to see the event that occurred on the first episode you will enter /episode1, and if you want to ask for something more specific add another /, such as ")
+    response.status(200)
+    response.send("<h4>To access any information from this API you will need to enter a /api/event first then your request of your desired episode, for example you will want to see the event that occurred on the first episode you will enter /episode1, and if you want to ask for something more specific add another /, such as </h4>")
+})
+app.get("/api/event/episode1", (request, response) => {
+    response.status(200)
+    response.json(gossipGirlSzn2.eventSznTwo[0])
+})
+app.get("/api/event/episode15/ChuckBass", (request, response) => {
+    response.status(200)
+    response.json(gossipGirlSzn2.eventSznTwo[3].characters[0])
+    
 })
 
+app.use((req, res, next) => {
+    res.status(404).send("404 NOT FOUND")
+})
 app.listen(3000, () => {
     console.log("Server now running!")
 })
